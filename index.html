@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Feliz Cumpleaños</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- MODAL DE ENTRADA -->
+<div class="modal fade" id="modalEntrada" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content glass-card" style="background: white;">
+            <div class="modal-header modal-header-custom">
+                <h5 class="modal-title w-100 text-center">Portal de Felicidad</h5>
+            </div>
+            <div class="modal-body text-center py-4">
+                <i class="bi bi-star-fill display-1" style="color: var(--color-principal);"></i>
+                <p class="mt-3 fs-5 fst-italic">"La amistad es el único bug que no quiero arreglar"</p>
+                <p class="text-muted">Preparado para una experiencia inolvidable?</p>
+            </div>
+            <div class="modal-footer justify-content-center border-0 pb-4">
+                <button type="button" id="btnEntrar" class="btn btn-lg px-4 btn-entrar" data-bs-dismiss="modal">
+                    Entrar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MENÚ NAVEGACIÓN -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#"><i class="bi bi-gift-fill"></i> Para [AMIGO]</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="menuNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link" href="#galeria">Galería</a></li>
+                <li class="nav-item"><a class="nav-link" href="#frases">Frases</a></li>
+                <li class="nav-item"><a class="nav-link" href="#mundo">Su mundo</a></li>
+                <li class="nav-item"><a class="nav-link" href="#perfil">Perfil</a></li>
+                <li class="nav-item"><a class="nav-link" href="#comentarios">Mensajes</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="inicio">
+    <div class="container position-relative" style="z-index: 2;">
+        <h1 id="tituloDinamico" class="display-4 fw-bold mb-3"></h1>
+        <p class="lead">Un año más, más código, más risas y más aventuras</p>
+    </div>
+</div>
+
+<div class="container mt-4">
+    <!-- FOTO PRINCIPAL -->
+    <div class="text-center">
+        <img src="fotos/amigo-principal.jpg" alt="[AMIGO]" class="foto-principal" onerror="this.src='https://placehold.co/400x400/9b59b6/white?text=FOTO'">
+    </div>
+
+    <!-- CARRUSEL -->
+    <div class="mt-5">
+        <h2 class="text-center mb-4"><i class="bi bi-camera-reels"></i> Momentos juntos</h2>
+        <div id="carruselAmigos" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carruselAmigos" data-bs-slide-to="0" class="active"></button>
+                <button type="button" data-bs-target="#carruselAmigos" data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#carruselAmigos" data-bs-slide-to="2"></button>
+            </div>
+            <div class="carousel-inner rounded-4">
+                <div class="carousel-item active">
+                    <img src="fotos/juntos1.jpg" class="d-block w-100" alt="Momento 1" onerror="this.src='https://placehold.co/1200x400/9b59b6/white?text=Foto+Juntos+1'">
+                    <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded-3 p-2">
+                        <p class="mb-0">Noche de estudio</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="fotos/juntos2.jpg" class="d-block w-100" alt="Momento 2" onerror="this.src='https://placehold.co/1200x400/f39c12/white?text=Foto+Juntos+2'">
+                    <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded-3 p-2">
+                        <p class="mb-0">Celebramos el 10</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="fotos/juntos3.jpg" class="d-block w-100" alt="Momento 3" onerror="this.src='https://placehold.co/1200x400/e74c3c/white?text=Foto+Juntos+3'">
+                    <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded-3 p-2">
+                        <p class="mb-0">Debugueando a las 3am</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carruselAmigos" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carruselAmigos" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        </div>
+    </div>
+
+    <!-- GALERÍA -->
+    <h2 class="text-center mb-4 mt-5" id="galeria"><i class="bi bi-grid-3x3-gap-fill"></i> Tú en tu esencia</h2>
+    <div class="row g-4 mb-5">
+        <div class="col-6 col-md-3">
+            <div class="glass-card p-2 text-center fade-in">
+                <img src="fotos/solo1.jpg" class="img-fluid rounded-3" style="height: 200px; width: 100%; object-fit: cover;" onerror="this.src='https://placehold.co/400x300/9b59b6/white?text=Foto+1'">
+                <p class="mt-2 small">Modo programador</p>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="glass-card p-2 text-center fade-in" style="animation-delay: 0.1s;">
+                <img src="fotos/solo2.jpg" class="img-fluid rounded-3" style="height: 200px; width: 100%; object-fit: cover;" onerror="this.src='https://placehold.co/400x300/f39c12/white?text=Foto+2'">
+                <p class="mt-2 small">Risas infinitas</p>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="glass-card p-2 text-center fade-in" style="animation-delay: 0.2s;">
+                <img src="fotos/meme1.jpg" class="img-fluid rounded-3" style="height: 200px; width: 100%; object-fit: cover;" onerror="this.src='https://placehold.co/400x300/e74c3c/white?text=Meme+1'">
+                <p class="mt-2 small">Cuando hay bug</p>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="glass-card p-2 text-center fade-in" style="animation-delay: 0.3s;">
+                <img src="fotos/meme2.jpg" class="img-fluid rounded-3" style="height: 200px; width: 100%; object-fit: cover;" onerror="this.src='https://placehold.co/400x300/3498db/white?text=Meme+2'">
+                <p class="mt-2 small">El finde sin planes</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FRASES Y MOMENTOS -->
+    <h2 class="text-center mb-4" id="frases"><i class="bi bi-chat-dots-fill"></i> Frases que marcan</h2>
+    <div class="mb-5">
+        <div class="timeline-item fade-in">
+            <div class="timeline-badge"><i class="bi bi-chat-quote"></i></div>
+            <div class="timeline-card">
+                <h5>"En mi máquina anda"</h5>
+                <p>La frase oficial cada vez que algo fallaba en producción.</p>
+                <small class="text-muted">Durante cada TP importante</small>
+            </div>
+        </div>
+        <div class="timeline-item fade-in" style="animation-delay: 0.1s;">
+            <div class="timeline-badge"><i class="bi bi-emoji-laughing"></i></div>
+            <div class="timeline-card">
+                <h5>"Un commit más y nos vamos"</h5>
+                <p>Spoiler: 45 commits después seguíamos ahí.</p>
+                <small class="text-muted">Marzo 2024</small>
+            </div>
+        </div>
+        <div class="timeline-item fade-in" style="animation-delay: 0.2s;">
+            <div class="timeline-badge"><i class="bi bi-trophy-fill"></i></div>
+            <div class="timeline-card">
+                <h5>El día que aprobamos Algoritmos</h5>
+                <p>Salimos a festejar con una pizza gigante.</p>
+                <small class="text-muted">Julio 2024</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- SU MUNDO -->
+    <h2 class="text-center mb-4" id="mundo"><i class="bi bi-globe2"></i> El universo de [AMIGO]</h2>
+    <div class="row g-4 mb-5">
+        <div class="col-12 col-md-6">
+            <div class="glass-card h-100 text-center p-3 fade-in">
+                <i class="bi bi-star-fill display-3" style="color: var(--color-secundario);"></i>
+                <h4 class="mt-2">Actor favorito</h4>
+                <img src="https://placehold.co/300x200/9b59b6/white?text=Keanu+Reeves" class="img-fluid rounded-3 mt-2" style="max-height: 180px;">
+                <p class="mt-2"><strong>Keanu Reeves</strong><br>"Porque es humilde y genial"</p>
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="glass-card h-100 text-center p-3 fade-in" style="animation-delay: 0.1s;">
+                <i class="bi bi-robot display-3" style="color: var(--color-principal);"></i>
+                <h4 class="mt-2">Personaje favorito</h4>
+                <img src="https://placehold.co/300x200/f39c12/white?text=Goku" class="img-fluid rounded-3 mt-2" style="max-height: 180px;">
+                <p class="mt-2"><strong>Goku</strong><br>"Nunca se rinde"</p>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="glass-card p-3 fade-in" style="animation-delay: 0.2s;">
+                <h5 class="text-center"><i class="bi bi-youtube"></i> Video especial</h5>
+                <div class="ratio ratio-16x9 mt-2">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Video especial" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PERFIL -->
+    <h2 class="text-center mb-4" id="perfil"><i class="bi bi-person-badge"></i> Quién es [AMIGO]</h2>
+    <div class="row mb-5">
+        <div class="col-12 col-lg-8 mx-auto">
+            <div class="glass-card p-4 fade-in">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5><i class="bi bi-info-circle-fill" style="color: var(--color-principal);"></i> Datos rápidos</h5>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-cake2"></i> <strong>Edad:</strong> [XX] años</li>
+                            <li><i class="bi bi-code-slash"></i> <strong>Lenguaje fav:</strong> Python</li>
+                            <li><i class="bi bi-joystick"></i> <strong>Juego fav:</strong> Dark Souls</li>
+                            <li><i class="bi bi-egg-fried"></i> <strong>Comida fav:</strong> Pizza</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h5><i class="bi bi-heart-fill text-danger"></i> Lo que más valoro</h5>
+                        <p>[ESCRIBE AQUÍ TU TEXTO PERSONAL]</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- COMENTARIOS WHATSAPP -->
+    <h2 class="text-center mb-4" id="comentarios"><i class="bi bi-whatsapp"></i> Déjame un mensaje</h2>
+    <div class="row mb-5">
+        <div class="col-12 col-lg-8 mx-auto">
+            <div class="glass-card p-4 text-center fade-in">
+                <i class="bi bi-chat-heart-fill display-1" style="color: #25D366;"></i>
+                <h4 class="mt-2">¿Quieres dejarle un mensaje a [AMIGO]?</h4>
+                <form id="formWhatsApp">
+                    <div class="mb-3">
+                        <input type="text" id="nombre" class="form-control" placeholder="Tu nombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <textarea id="mensaje" class="form-control" rows="3" placeholder="Escribe tu mensaje..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-lg px-5 btn-enviar">
+                        <i class="bi bi-whatsapp"></i> Enviar por WhatsApp
+                    </button>
+                </form>
+                <div id="mensajeExito" class="alert alert-success mt-3 d-none">Gracias</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- QR -->
+    <div class="row mb-5">
+        <div class="col-12 text-center">
+            <div class="glass-card d-inline-block p-4 mx-auto">
+                <i class="bi bi-qr-code-scan display-1"></i>
+                <h5>Escanea para ver el collage</h5>
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://tusuario.github.io/mi-repo/collage.html" alt="QR" class="img-fluid mx-auto d-block" style="width: 150px;">
+                <p class="small text-muted mt-2">Collage de recuerdos</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ENLACE "HAZ CLICK AQUÍ" -->
+    <div class="row mb-5">
+        <div class="col-12 text-center">
+            <div class="glass-card d-inline-block p-4 mx-auto">
+                <i class="bi bi-image display-1"></i>
+                <h5>Sorpresa extra</h5>
+                <a href="#" id="enlaceImagen" class="btn-enlace">Haz click aquí</a>
+                <div id="imagenOculta" style="display: none; margin-top: 20px;">
+                    <img src="fotos/imagen-secreta.jpg" alt="Imagen sorpresa" class="img-fluid rounded-3" style="max-width: 100%; max-height: 300px;" onerror="this.src='https://placehold.co/400x300/f39c12/white?text=Imagen+Sorpresa'">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="mt-5">
+    <div class="container py-4">
+        <div class="row g-4">
+            <div class="col-12 col-md-4 text-center text-md-start">
+                <h5><i class="bi bi-code-slash"></i> Hecho con</h5>
+                <p><i class="bi bi-suit-heart-fill text-danger"></i> por <strong>[TU NOMBRE]</strong><br>
+                <span class="badge badge-footer">Estudiante de Ing. Sistemas</span></p>
+            </div>
+            <div class="col-12 col-md-4 text-center">
+                <h5><i class="bi bi-graph-up"></i> Stats de la amistad</h5>
+                <ul class="list-unstyled small">
+                    <li>años: <span id="añosAmistad">3</span></li>
+                    <li>TPs: <span id="tpsJuntos">12</span></li>
+                    <li>cafés: <span id="cafes">187</span></li>
+                </ul>
+            </div>
+            <div class="col-12 col-md-4 text-center">
+                <h5><i class="bi bi-chat-quote"></i> Frase del día</h5>
+                <p id="fraseRandom" class="fst-italic small">"La amistad es como un buen código"</p>
+                <button id="btnFrase" class="btn btn-sm btn-outline-light">Otra frase</button>
+            </div>
+        </div>
+        <hr class="my-3" style="border-color: #444;">
+        <div class="row text-center">
+            <div class="col-12">
+                <p class="mb-1 small"><i class="bi bi-c-circle"></i> 2024 - Dedicado a [AMIGO]</p>
+                <p class="mb-1 small"><i class="bi bi-eye"></i> Visitas: <span id="contadorVisitas">0</span></p>
+                <p class="mb-0 small text-muted" id="easterEgg" style="cursor: pointer;">
+                    <i class="bi bi-terminal"></i> Mensaje secreto
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<button id="modoBtn" class="modo-btn">🌙</button>
+
+<script src="script.js"></script>
+</body>
+</html>
