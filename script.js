@@ -1,78 +1,65 @@
-// ========== TEXTO QUE SE ESCRIBE SOLO Y LUEGO PARPADEA INFINITO ==========
-const textoCompleto = "Feliz cumple, [AMIGO]";
-let indice = 0;
+// ========== TEXTO CON EFECTO DE ESCRITURA EN BUCLE INFINITO ==========
+const textoCompleto = "FELIZ CUMPLEAÑOS, [AMIGO]";
 const tituloElement = document.getElementById('tituloDinamico');
-let intervaloParpadeo = null;
-let escribiendo = true;
+let intervaloBucle = null;
+let estaEscribiendo = false;
 
-function escribirTitulo() {
-    if (indice < textoCompleto.length) {
-        tituloElement.innerHTML = textoCompleto.substring(0, indice + 1) + '<span class="cursor-parpadeante"></span>';
-        indice++;
-        setTimeout(escribirTitulo, 70);
+function escribirTexto(indice, callback) {
+    if (indice <= textoCompleto.length) {
+        tituloElement.innerHTML = textoCompleto.substring(0, indice) + '<span class="cursor-parpadeante"></span>';
+        setTimeout(() => escribirTexto(indice + 1, callback), 80);
     } else {
-        escribiendo = false;
-        setTimeout(() => {
-            tituloElement.innerHTML = textoCompleto;
-            iniciarParpadeoInfinito();
-        }, 500);
+        tituloElement.innerHTML = textoCompleto + '<span class="cursor-parpadeante"></span>';
+        if (callback) setTimeout(callback, 2000);
     }
 }
 
-function iniciarParpadeoInfinito() {
-    if (intervaloParpadeo) clearInterval(intervaloParpadeo);
-    
-    // Bucle infinito: aparece y desaparece cada 1.5 segundos
-    intervaloParpadeo = setInterval(() => {
-        if (tituloElement && !escribiendo) {
-            tituloElement.classList.toggle('texto-parpadeante');
-        }
-    }, 1500);
+function borrarTexto(indice, callback) {
+    if (indice >= 0) {
+        tituloElement.innerHTML = textoCompleto.substring(0, indice) + '<span class="cursor-parpadeante"></span>';
+        setTimeout(() => borrarTexto(indice - 1, callback), 60);
+    } else {
+        tituloElement.innerHTML = '<span class="cursor-parpadeante"></span>';
+        if (callback) setTimeout(callback, 500);
+    }
 }
 
-// ========== CONFETI AL CERRAR MODAL ==========
-function lanzarConfetiMasivo() {
-    // Explosión principal
-    canvasConfetti({
-        particleCount: 250,
-        spread: 120,
-        origin: { y: 0.5 },
-        startVelocity: 25,
-        colors: ['#9b59b6', '#f39c12', '#3498db', '#e74c3c', '#2ecc71', '#e67e22']
-    });
-    
-    // Segunda ráfaga desde la izquierda
-    setTimeout(() => {
-        canvasConfetti({
-            particleCount: 100,
-            spread: 80,
-            origin: { x: 0.2, y: 0.6 },
-            startVelocity: 20,
-            colors: ['#9b59b6', '#f39c12', '#e74c3c']
+function iniciarBucleInfinito() {
+    function ciclo() {
+        escribirTexto(0, () => {
+            borrarTexto(textoCompleto.length, () => {
+                ciclo();
+            });
         });
-    }, 150);
+    }
+    ciclo();
+}
+
+// ========== CONFETI DENTRO DEL MODAL ==========
+let confetiActivo = false;
+
+function lanzarConfetiEnModal() {
+    if (confetiActivo) return;
+    confetiActivo = true;
     
-    // Tercera ráfaga desde la derecha
-    setTimeout(() => {
-        canvasConfetti({
-            particleCount: 100,
-            spread: 80,
-            origin: { x: 0.8, y: 0.6 },
-            startVelocity: 20,
-            colors: ['#3498db', '#2ecc71', '#f39c12']
-        });
-    }, 300);
-    
-    // Confeti cayendo tipo lluvia
-    setTimeout(() => {
-        canvasConfetti({
-            particleCount: 150,
-            spread: 100,
-            origin: { y: 0.1 },
-            startVelocity: 10,
-            gravity: 1.5
-        });
-    }, 500);
+    // Confeti cada 2 segundos mientras el modal esté abierto
+    const intervaloConfeti = setInterval(() => {
+        const modal = document.getElementById('modalEntrada');
+        const modalVisible = modal.classList.contains('show');
+        
+        if (modalVisible) {
+            canvasConfetti({
+                particleCount: 60,
+                spread: 70,
+                origin: { y: 0.7 },
+                startVelocity: 15,
+                colors: ['#9b59b6', '#f39c12', '#3498db', '#e74c3c', '#2ecc71']
+            });
+        } else {
+            clearInterval(intervaloConfeti);
+            confetiActivo = false;
+        }
+    }, 1800);
 }
 
 // ========== MODO OSCURO ==========
@@ -117,9 +104,7 @@ const frases = [
     '"Gracias por hacer commit a nuestra amistad todos los días"',
     '"Contigo hasta el stack overflow es divertido"',
     '"Eres mi variable favorita en esta función llamada vida"',
-    '"Ningún servidor es tan confiable como vos"',
-    '"Los verdaderos amigos no necesitan documentación"',
-    '"Eres mi main() favorito"'
+    '"Ningún servidor es tan confiable como vos"'
 ];
 
 document.getElementById('btnFrase')?.addEventListener('click', () => {
@@ -136,7 +121,6 @@ document.getElementById('contadorVisitas').innerText = visitas;
 // ========== EASTER EGG ==========
 document.getElementById('easterEgg')?.addEventListener('click', () => {
     alert('🎉 ¡Eres un crack! Gracias por visitar esta página.');
-    // Confeti sorpresa al hacer click
     canvasConfetti({
         particleCount: 80,
         spread: 60,
@@ -170,7 +154,6 @@ enlace?.addEventListener('click', (e) => {
     if (imagenDiv.style.display === 'none' || imagenDiv.style.display === '') {
         imagenDiv.style.display = 'block';
         enlace.textContent = 'Ocultar imagen';
-        // Confeti pequeño al mostrar la imagen
         canvasConfetti({
             particleCount: 50,
             spread: 40,
@@ -184,16 +167,15 @@ enlace?.addEventListener('click', (e) => {
 
 // ========== INICIALIZAR ==========
 window.addEventListener('load', () => {
-    // Mostrar modal
+    // Mostrar modal y lanzar confeti dentro de él
     const modal = new bootstrap.Modal(document.getElementById('modalEntrada'));
     modal.show();
     
-    // Al hacer clic en "Entrar", lanzar confeti MASIVO
-    const btnEntrar = document.getElementById('btnEntrar');
-    btnEntrar?.addEventListener('click', () => {
-        lanzarConfetiMasivo();
-    });
+    // Iniciar confeti dentro del modal
+    setTimeout(() => {
+        lanzarConfetiEnModal();
+    }, 500);
     
-    // Iniciar escritura del título
-    setTimeout(escribirTitulo, 300);
+    // Iniciar el bucle infinito del título
+    setTimeout(iniciarBucleInfinito, 300);
 });
