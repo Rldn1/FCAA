@@ -152,3 +152,12 @@ window.addEventListener('load', () => {
     setTimeout(() => { lanzarConfetiEnModal(); }, 500);
     setTimeout(iniciarBucleInfinito, 300);
 });
+
+// Botón de canción (modal)
+const btnVideo = document.getElementById('btnVideoModal');
+if (btnVideo) {
+    btnVideo.addEventListener('click', () => {
+        const modal = new bootstrap.Modal(document.getElementById('modalVideo'));
+        modal.show();
+    });
+}

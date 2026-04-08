@@ -5,49 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Feliz Cumpleaños</title>
     
-    <!-- Bootstrap 5 + Iconos + Fuentes -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Librería de confeti -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
     
-    <!-- CSS propio -->
     <link rel="stylesheet" href="style.css">
 </head>
-
-<!-- Botón flotante para canción (izquierda) -->
-<button id="btnVideoModal" style="position: fixed; bottom: 20px; left: 20px; width: 55px; height: 55px; border-radius: 50%; background: #e74c3c; color: white; border: none; z-index: 9999; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; font-size: 1.5rem; transition: 0.3s;">
-    🎵
-</button>
-
-<!-- Modal del video -->
-<div class="modal fade" id="modalVideo" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content glass-card">
-            <div class="modal-header modal-header-custom">
-                <h5 class="modal-title w-100 text-center">🎂 Canción de cumpleaños</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-            </div>
-            <div class="modal-body p-3">
-                <div class="ratio ratio-16x9">
-                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Feliz cumpleaños" allowfullscreen></iframe>
-                </div>
-                <p class="text-center text-muted small mt-2">Dedicada especialmente para ti 🎉</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    // Abrir modal al hacer clic en el botón
-    document.getElementById('btnVideoModal')?.addEventListener('click', () => {
-        const modal = new bootstrap.Modal(document.getElementById('modalVideo'));
-        modal.show();
-    });
-</script>
-
 <body>
 
 <!-- MODAL DE ENTRADA -->
@@ -102,7 +66,7 @@
 <div class="container mt-4">
     <!-- FOTO PRINCIPAL -->
     <div class="text-center">
-        <img src="fotos/amigo-principal.jpg" alt="[AMIGO]" class="foto-principal" onerror="this.src='https://placehold.co/400x400/9b59b6/white?text=FOTO'">
+        <img src="fotos/amigo-principal.jpg" alt="[AMIGO]" class="foto-principal" onerror="this.src='https://placehold.co/400x400/2563eb/white?text=FOTO'">
     </div>
 
     <!-- CARRUSEL -->
@@ -116,19 +80,19 @@
             </div>
             <div class="carousel-inner rounded-4">
                 <div class="carousel-item active">
-                    <img src="fotos/juntos1.jpg" class="d-block w-100" alt="Momento 1" onerror="this.src='https://placehold.co/1200x400/9b59b6/white?text=Foto+Juntos+1'">
+                    <img src="fotos/juntos1.jpg" class="d-block w-100" alt="Momento 1" style="height: 400px; object-fit: cover;" onerror="this.src='https://placehold.co/1200x400/2563eb/white?text=Foto+Juntos+1'">
                     <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded-3 p-2">
                         <p class="mb-0">Noche de estudio</p>
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="fotos/juntos2.jpg" class="d-block w-100" alt="Momento 2" onerror="this.src='https://placehold.co/1200x400/f39c12/white?text=Foto+Juntos+2'">
+                    <img src="fotos/juntos2.jpg" class="d-block w-100" alt="Momento 2" style="height: 400px; object-fit: cover;" onerror="this.src='https://placehold.co/1200x400/3b82f6/white?text=Foto+Juntos+2'">
                     <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded-3 p-2">
                         <p class="mb-0">Celebramos el 10</p>
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="fotos/juntos3.jpg" class="d-block w-100" alt="Momento 3" onerror="this.src='https://placehold.co/1200x400/e74c3c/white?text=Foto+Juntos+3'">
+                    <img src="fotos/juntos3.jpg" class="d-block w-100" alt="Momento 3" style="height: 400px; object-fit: cover;" onerror="this.src='https://placehold.co/1200x400/1e40af/white?text=Foto+Juntos+3'">
                     <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded-3 p-2">
                         <p class="mb-0">Debugueando a las 3am</p>
                     </div>
@@ -148,25 +112,25 @@
     <div class="row g-4 mb-5">
         <div class="col-6 col-md-3">
             <div class="glass-card p-2 text-center fade-in">
-                <img src="fotos/solo1.jpg" class="img-fluid rounded-3" style="height: 200px; width: 100%; object-fit: cover;" onerror="this.src='https://placehold.co/400x300/9b59b6/white?text=Foto+1'">
+                <img src="fotos/solo1.jpg" class="img-fluid rounded-3" style="height: 200px; width: 100%; object-fit: cover;" onerror="this.src='https://placehold.co/400x300/2563eb/white?text=Foto+1'">
                 <p class="mt-2 small">Modo programador</p>
             </div>
         </div>
         <div class="col-6 col-md-3">
             <div class="glass-card p-2 text-center fade-in" style="animation-delay: 0.1s;">
-                <img src="fotos/solo2.jpg" class="img-fluid rounded-3" style="height: 200px; width: 100%; object-fit: cover;" onerror="this.src='https://placehold.co/400x300/f39c12/white?text=Foto+2'">
+                <img src="fotos/solo2.jpg" class="img-fluid rounded-3" style="height: 200px; width: 100%; object-fit: cover;" onerror="this.src='https://placehold.co/400x300/3b82f6/white?text=Foto+2'">
                 <p class="mt-2 small">Risas infinitas</p>
             </div>
         </div>
         <div class="col-6 col-md-3">
             <div class="glass-card p-2 text-center fade-in" style="animation-delay: 0.2s;">
-                <img src="fotos/meme1.jpg" class="img-fluid rounded-3" style="height: 200px; width: 100%; object-fit: cover;" onerror="this.src='https://placehold.co/400x300/e74c3c/white?text=Meme+1'">
+                <img src="fotos/meme1.jpg" class="img-fluid rounded-3" style="height: 200px; width: 100%; object-fit: cover;" onerror="this.src='https://placehold.co/400x300/1e40af/white?text=Meme+1'">
                 <p class="mt-2 small">Cuando hay bug</p>
             </div>
         </div>
         <div class="col-6 col-md-3">
             <div class="glass-card p-2 text-center fade-in" style="animation-delay: 0.3s;">
-                <img src="fotos/meme2.jpg" class="img-fluid rounded-3" style="height: 200px; width: 100%; object-fit: cover;" onerror="this.src='https://placehold.co/400x300/3498db/white?text=Meme+2'">
+                <img src="fotos/meme2.jpg" class="img-fluid rounded-3" style="height: 200px; width: 100%; object-fit: cover;" onerror="this.src='https://placehold.co/400x300/60a5fa/white?text=Meme+2'">
                 <p class="mt-2 small">El finde sin planes</p>
             </div>
         </div>
@@ -208,7 +172,7 @@
             <div class="glass-card h-100 text-center p-3 fade-in">
                 <i class="bi bi-star-fill display-3" style="color: var(--color-secundario);"></i>
                 <h4 class="mt-2">Actor favorito</h4>
-                <img src="https://placehold.co/300x200/9b59b6/white?text=Keanu+Reeves" class="img-fluid rounded-3 mt-2" style="max-height: 180px;">
+                <img src="https://placehold.co/300x200/2563eb/white?text=Keanu+Reeves" class="img-fluid rounded-3 mt-2" style="max-height: 180px; width: 100%; object-fit: cover;">
                 <p class="mt-2"><strong>Keanu Reeves</strong><br>"Porque es humilde y genial"</p>
             </div>
         </div>
@@ -216,7 +180,7 @@
             <div class="glass-card h-100 text-center p-3 fade-in" style="animation-delay: 0.1s;">
                 <i class="bi bi-robot display-3" style="color: var(--color-principal);"></i>
                 <h4 class="mt-2">Personaje favorito</h4>
-                <img src="https://placehold.co/300x200/f39c12/white?text=Goku" class="img-fluid rounded-3 mt-2" style="max-height: 180px;">
+                <img src="https://placehold.co/300x200/3b82f6/white?text=Goku" class="img-fluid rounded-3 mt-2" style="max-height: 180px; width: 100%; object-fit: cover;">
                 <p class="mt-2"><strong>Goku</strong><br>"Nunca se rinde"</p>
             </div>
         </div>
@@ -296,7 +260,7 @@
                 <h5 class="mt-2">Sorpresa extra</h5>
                 <a href="#" id="enlaceImagen" class="btn-enlace mt-2 d-inline-block">Haz click aquí</a>
                 <div id="imagenOculta" style="display: none; margin-top: 20px;">
-                    <img src="fotos/imagen-secreta.jpg" alt="Imagen sorpresa" class="img-fluid rounded-3" style="max-width: 100%; max-height: 200px;" onerror="this.src='https://placehold.co/400x300/f39c12/white?text=Imagen+Sorpresa'">
+                    <img src="fotos/imagen-secreta.jpg" alt="Imagen sorpresa" class="img-fluid rounded-3" style="max-width: 100%; max-height: 200px; object-fit: cover;" onerror="this.src='https://placehold.co/400x300/f39c12/white?text=Imagen+Sorpresa'">
                 </div>
             </div>
         </div>
@@ -339,7 +303,29 @@
     </div>
 </footer>
 
-<button id="modoBtn" class="modo-btn">🌙</button>
+<!-- BOTONES FLOTANTES (juntos) -->
+<div class="botones-flotantes">
+    <button id="modoBtn" class="modo-btn">🌙</button>
+    <button id="btnVideoModal" class="btn-cancion">🎵</button>
+</div>
+
+<!-- MODAL DEL VIDEO (CANCIÓN) -->
+<div class="modal fade" id="modalVideo" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content glass-card">
+            <div class="modal-header modal-header-custom">
+                <h5 class="modal-title w-100 text-center">🎂 Canción de cumpleaños</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body p-3">
+                <div class="ratio ratio-16x9">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Feliz cumpleaños" allowfullscreen></iframe>
+                </div>
+                <p class="text-center text-muted small mt-2">Dedicada especialmente para ti 🎉</p>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="script.js"></script>
