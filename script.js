@@ -1,8 +1,9 @@
-// ========== TEXTO QUE SE ESCRIBE SOLO Y LUEGO PARPADEA ==========
+// ========== TEXTO QUE SE ESCRIBE SOLO Y LUEGO PARPADEA INFINITO ==========
 const textoCompleto = "Feliz cumple, [AMIGO]";
 let indice = 0;
 const tituloElement = document.getElementById('tituloDinamico');
 let intervaloParpadeo = null;
+let escribiendo = true;
 
 function escribirTitulo() {
     if (indice < textoCompleto.length) {
@@ -10,47 +11,66 @@ function escribirTitulo() {
         indice++;
         setTimeout(escribirTitulo, 70);
     } else {
+        escribiendo = false;
         setTimeout(() => {
             tituloElement.innerHTML = textoCompleto;
-            iniciarParpadeoContinuo();
+            iniciarParpadeoInfinito();
         }, 500);
     }
 }
 
-function iniciarParpadeoContinuo() {
+function iniciarParpadeoInfinito() {
     if (intervaloParpadeo) clearInterval(intervaloParpadeo);
+    
+    // Bucle infinito: aparece y desaparece cada 1.5 segundos
     intervaloParpadeo = setInterval(() => {
-        if (tituloElement) {
+        if (tituloElement && !escribiendo) {
             tituloElement.classList.toggle('texto-parpadeante');
         }
-    }, 1200);
+    }, 1500);
 }
 
 // ========== CONFETI AL CERRAR MODAL ==========
-function lanzarConfeti() {
+function lanzarConfetiMasivo() {
+    // Explosión principal
     canvasConfetti({
-        particleCount: 200,
-        spread: 100,
-        origin: { y: 0.6 },
+        particleCount: 250,
+        spread: 120,
+        origin: { y: 0.5 },
         startVelocity: 25,
-        colors: ['#9b59b6', '#f39c12', '#3498db', '#e74c3c', '#2ecc71']
+        colors: ['#9b59b6', '#f39c12', '#3498db', '#e74c3c', '#2ecc71', '#e67e22']
     });
     
+    // Segunda ráfaga desde la izquierda
     setTimeout(() => {
         canvasConfetti({
             particleCount: 100,
-            spread: 70,
-            origin: { y: 0.7 },
-            startVelocity: 15
+            spread: 80,
+            origin: { x: 0.2, y: 0.6 },
+            startVelocity: 20,
+            colors: ['#9b59b6', '#f39c12', '#e74c3c']
         });
-    }, 200);
+    }, 150);
     
+    // Tercera ráfaga desde la derecha
     setTimeout(() => {
         canvasConfetti({
-            particleCount: 50,
-            spread: 50,
-            origin: { y: 0.5 },
-            startVelocity: 10
+            particleCount: 100,
+            spread: 80,
+            origin: { x: 0.8, y: 0.6 },
+            startVelocity: 20,
+            colors: ['#3498db', '#2ecc71', '#f39c12']
+        });
+    }, 300);
+    
+    // Confeti cayendo tipo lluvia
+    setTimeout(() => {
+        canvasConfetti({
+            particleCount: 150,
+            spread: 100,
+            origin: { y: 0.1 },
+            startVelocity: 10,
+            gravity: 1.5
         });
     }, 500);
 }
@@ -97,7 +117,9 @@ const frases = [
     '"Gracias por hacer commit a nuestra amistad todos los días"',
     '"Contigo hasta el stack overflow es divertido"',
     '"Eres mi variable favorita en esta función llamada vida"',
-    '"Ningún servidor es tan confiable como vos"'
+    '"Ningún servidor es tan confiable como vos"',
+    '"Los verdaderos amigos no necesitan documentación"',
+    '"Eres mi main() favorito"'
 ];
 
 document.getElementById('btnFrase')?.addEventListener('click', () => {
@@ -113,7 +135,13 @@ document.getElementById('contadorVisitas').innerText = visitas;
 
 // ========== EASTER EGG ==========
 document.getElementById('easterEgg')?.addEventListener('click', () => {
-    alert('Gracias por visitar esta página.');
+    alert('🎉 ¡Eres un crack! Gracias por visitar esta página.');
+    // Confeti sorpresa al hacer click
+    canvasConfetti({
+        particleCount: 80,
+        spread: 60,
+        origin: { y: 0.8 }
+    });
 });
 
 // ========== WHATSAPP ==========
@@ -133,7 +161,7 @@ form?.addEventListener('submit', (event) => {
     }, 1000);
 });
 
-// ========== ENLACE "HAZ CLICK AQUÍ" (imagen oculta) ==========
+// ========== ENLACE "HAZ CLICK AQUÍ" ==========
 const enlace = document.getElementById('enlaceImagen');
 const imagenDiv = document.getElementById('imagenOculta');
 
@@ -142,6 +170,12 @@ enlace?.addEventListener('click', (e) => {
     if (imagenDiv.style.display === 'none' || imagenDiv.style.display === '') {
         imagenDiv.style.display = 'block';
         enlace.textContent = 'Ocultar imagen';
+        // Confeti pequeño al mostrar la imagen
+        canvasConfetti({
+            particleCount: 50,
+            spread: 40,
+            origin: { y: 0.8 }
+        });
     } else {
         imagenDiv.style.display = 'none';
         enlace.textContent = 'Haz click aquí';
@@ -154,10 +188,10 @@ window.addEventListener('load', () => {
     const modal = new bootstrap.Modal(document.getElementById('modalEntrada'));
     modal.show();
     
-    // Al hacer clic en "Entrar", lanzar confeti
+    // Al hacer clic en "Entrar", lanzar confeti MASIVO
     const btnEntrar = document.getElementById('btnEntrar');
     btnEntrar?.addEventListener('click', () => {
-        lanzarConfeti();
+        lanzarConfetiMasivo();
     });
     
     // Iniciar escritura del título
