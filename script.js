@@ -2,7 +2,7 @@
 const textoCompleto = "Feliz cumple, [AMIGO]";
 let indice = 0;
 const tituloElement = document.getElementById('tituloDinamico');
-let escrituraCompleta = false;
+let intervaloParpadeo = null;
 
 function escribirTitulo() {
     if (indice < textoCompleto.length) {
@@ -10,7 +10,6 @@ function escribirTitulo() {
         indice++;
         setTimeout(escribirTitulo, 70);
     } else {
-        escrituraCompleta = true;
         setTimeout(() => {
             tituloElement.innerHTML = textoCompleto;
             iniciarParpadeoContinuo();
@@ -19,20 +18,16 @@ function escribirTitulo() {
 }
 
 function iniciarParpadeoContinuo() {
-    setInterval(() => {
+    if (intervaloParpadeo) clearInterval(intervaloParpadeo);
+    intervaloParpadeo = setInterval(() => {
         if (tituloElement) {
             tituloElement.classList.toggle('texto-parpadeante');
         }
-    }, 1500);
+    }, 1200);
 }
 
-// ========== CONFETI LOCALIZADO ==========
-let confetiYaLanzado = false;
-
+// ========== CONFETI AL CERRAR MODAL ==========
 function lanzarConfeti() {
-    if (confetiYaLanzado) return;
-    confetiYaLanzado = true;
-    
     canvasConfetti({
         particleCount: 200,
         spread: 100,
@@ -112,4 +107,59 @@ document.getElementById('btnFrase')?.addEventListener('click', () => {
 
 // ========== CONTADOR DE VISITAS ==========
 let visitas = localStorage.getItem('visitasFooter');
-visitas = visitas ? parseInt
+visitas = visitas ? parseInt(visitas) + 1 : 1;
+localStorage.setItem('visitasFooter', visitas);
+document.getElementById('contadorVisitas').innerText = visitas;
+
+// ========== EASTER EGG ==========
+document.getElementById('easterEgg')?.addEventListener('click', () => {
+    alert('Gracias por visitar esta página.');
+});
+
+// ========== WHATSAPP ==========
+const form = document.getElementById('formWhatsApp');
+const successDiv = document.getElementById('mensajeExito');
+const numeroTelefono = "TU_NUMERO_AQUI";
+form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const nombre = document.getElementById('nombre').value;
+    const mensaje = document.getElementById('mensaje').value;
+    const url = `https://wa.me/${numeroTelefono}?text=*Mensaje para [AMIGO]*%0A%0A*De:* ${nombre}%0A*Mensaje:* ${mensaje}`;
+    successDiv.classList.remove('d-none');
+    setTimeout(() => { 
+        window.open(url, '_blank'); 
+        form.reset(); 
+        setTimeout(() => successDiv.classList.add('d-none'), 5000); 
+    }, 1000);
+});
+
+// ========== ENLACE "HAZ CLICK AQUÍ" (imagen oculta) ==========
+const enlace = document.getElementById('enlaceImagen');
+const imagenDiv = document.getElementById('imagenOculta');
+
+enlace?.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (imagenDiv.style.display === 'none' || imagenDiv.style.display === '') {
+        imagenDiv.style.display = 'block';
+        enlace.textContent = 'Ocultar imagen';
+    } else {
+        imagenDiv.style.display = 'none';
+        enlace.textContent = 'Haz click aquí';
+    }
+});
+
+// ========== INICIALIZAR ==========
+window.addEventListener('load', () => {
+    // Mostrar modal
+    const modal = new bootstrap.Modal(document.getElementById('modalEntrada'));
+    modal.show();
+    
+    // Al hacer clic en "Entrar", lanzar confeti
+    const btnEntrar = document.getElementById('btnEntrar');
+    btnEntrar?.addEventListener('click', () => {
+        lanzarConfeti();
+    });
+    
+    // Iniciar escritura del título
+    setTimeout(escribirTitulo, 300);
+});
