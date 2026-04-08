@@ -1,8 +1,5 @@
-// ========== TEXTO CON EFECTO DE ESCRITURA EN BUCLE INFINITO ==========
 const textoCompleto = "FELIZ CUMPLEAÑOS, [AMIGO]";
 const tituloElement = document.getElementById('tituloDinamico');
-let intervaloBucle = null;
-let estaEscribiendo = false;
 
 function escribirTexto(indice, callback) {
     if (indice <= textoCompleto.length) {
@@ -35,15 +32,14 @@ function iniciarBucleInfinito() {
     ciclo();
 }
 
-// ========== CONFETI DENTRO DEL MODAL ==========
 let confetiActivo = false;
+let intervaloConfeti = null;
 
 function lanzarConfetiEnModal() {
     if (confetiActivo) return;
     confetiActivo = true;
     
-    // Confeti cada 2 segundos mientras el modal esté abierto
-    const intervaloConfeti = setInterval(() => {
+    intervaloConfeti = setInterval(() => {
         const modal = document.getElementById('modalEntrada');
         const modalVisible = modal.classList.contains('show');
         
@@ -62,7 +58,6 @@ function lanzarConfetiEnModal() {
     }, 1800);
 }
 
-// ========== MODO OSCURO ==========
 const modoBtn = document.getElementById('modoBtn');
 let modoOscuro = false;
 
@@ -97,14 +92,12 @@ modoBtn.addEventListener('click', () => {
     }
 });
 
-// ========== FRASES RANDOM ==========
 const frases = [
     '"La amistad es el único bug que no quiero arreglar"',
     '"Eres la excepción que no lanza error"',
     '"Gracias por hacer commit a nuestra amistad todos los días"',
     '"Contigo hasta el stack overflow es divertido"',
-    '"Eres mi variable favorita en esta función llamada vida"',
-    '"Ningún servidor es tan confiable como vos"'
+    '"Eres mi variable favorita en esta función llamada vida"'
 ];
 
 document.getElementById('btnFrase')?.addEventListener('click', () => {
@@ -112,23 +105,16 @@ document.getElementById('btnFrase')?.addEventListener('click', () => {
     document.getElementById('fraseRandom').innerHTML = frases[randomIndex];
 });
 
-// ========== CONTADOR DE VISITAS ==========
 let visitas = localStorage.getItem('visitasFooter');
 visitas = visitas ? parseInt(visitas) + 1 : 1;
 localStorage.setItem('visitasFooter', visitas);
 document.getElementById('contadorVisitas').innerText = visitas;
 
-// ========== EASTER EGG ==========
 document.getElementById('easterEgg')?.addEventListener('click', () => {
-    alert('🎉 ¡Eres un crack! Gracias por visitar esta página.');
-    canvasConfetti({
-        particleCount: 80,
-        spread: 60,
-        origin: { y: 0.8 }
-    });
+    alert('Gracias por visitar esta página.');
+    canvasConfetti({ particleCount: 80, spread: 60, origin: { y: 0.8 } });
 });
 
-// ========== WHATSAPP ==========
 const form = document.getElementById('formWhatsApp');
 const successDiv = document.getElementById('mensajeExito');
 const numeroTelefono = "TU_NUMERO_AQUI";
@@ -145,7 +131,6 @@ form?.addEventListener('submit', (event) => {
     }, 1000);
 });
 
-// ========== ENLACE "HAZ CLICK AQUÍ" ==========
 const enlace = document.getElementById('enlaceImagen');
 const imagenDiv = document.getElementById('imagenOculta');
 
@@ -154,28 +139,16 @@ enlace?.addEventListener('click', (e) => {
     if (imagenDiv.style.display === 'none' || imagenDiv.style.display === '') {
         imagenDiv.style.display = 'block';
         enlace.textContent = 'Ocultar imagen';
-        canvasConfetti({
-            particleCount: 50,
-            spread: 40,
-            origin: { y: 0.8 }
-        });
+        canvasConfetti({ particleCount: 50, spread: 40, origin: { y: 0.8 } });
     } else {
         imagenDiv.style.display = 'none';
         enlace.textContent = 'Haz click aquí';
     }
 });
 
-// ========== INICIALIZAR ==========
 window.addEventListener('load', () => {
-    // Mostrar modal y lanzar confeti dentro de él
     const modal = new bootstrap.Modal(document.getElementById('modalEntrada'));
     modal.show();
-    
-    // Iniciar confeti dentro del modal
-    setTimeout(() => {
-        lanzarConfetiEnModal();
-    }, 500);
-    
-    // Iniciar el bucle infinito del título
+    setTimeout(() => { lanzarConfetiEnModal(); }, 500);
     setTimeout(iniciarBucleInfinito, 300);
 });

@@ -5,13 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Feliz Cumpleaños</title>
     
+    <!-- Bootstrap 5 + Iconos + Fuentes -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Librería de confeti -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
     
+    <!-- CSS propio -->
     <link rel="stylesheet" href="style.css">
 </head>
+
+<!-- Botón flotante para canción (izquierda) -->
+<button id="btnVideoModal" style="position: fixed; bottom: 20px; left: 20px; width: 55px; height: 55px; border-radius: 50%; background: #e74c3c; color: white; border: none; z-index: 9999; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; font-size: 1.5rem; transition: 0.3s;">
+    🎵
+</button>
+
+<!-- Modal del video -->
+<div class="modal fade" id="modalVideo" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content glass-card">
+            <div class="modal-header modal-header-custom">
+                <h5 class="modal-title w-100 text-center">🎂 Canción de cumpleaños</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body p-3">
+                <div class="ratio ratio-16x9">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Feliz cumpleaños" allowfullscreen></iframe>
+                </div>
+                <p class="text-center text-muted small mt-2">Dedicada especialmente para ti 🎉</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Abrir modal al hacer clic en el botón
+    document.getElementById('btnVideoModal')?.addEventListener('click', () => {
+        const modal = new bootstrap.Modal(document.getElementById('modalVideo'));
+        modal.show();
+    });
+</script>
+
 <body>
 
 <!-- MODAL DE ENTRADA -->
@@ -27,7 +63,7 @@
                 <p class="text-muted">Preparado para una experiencia inolvidable?</p>
             </div>
             <div class="modal-footer justify-content-center border-0 pb-4">
-                <button type="button" id="btnEntrar" class="btn btn-lg px-4 btn-entrar" data-bs-dismiss="modal">
+                <button type="button" id="btnCerrarModal" class="btn btn-lg px-4 btn-entrar" data-bs-dismiss="modal">
                     Entrar
                 </button>
             </div>
@@ -241,27 +277,26 @@
         </div>
     </div>
 
-    <!-- QR -->
-    <div class="row mb-5">
-        <div class="col-12 text-center">
-            <div class="glass-card d-inline-block p-4 mx-auto">
+    <!-- QR + SORPRESA (uno al lado del otro) -->
+    <div class="row mb-5 justify-content-center g-4">
+        <!-- QR -->
+        <div class="col-12 col-md-5">
+            <div class="glass-card text-center p-4 h-100">
                 <i class="bi bi-qr-code-scan display-1"></i>
-                <h5>Escanea para ver el collage</h5>
+                <h5 class="mt-2">Escanea para ver el collage</h5>
                 <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://tusuario.github.io/mi-repo/collage.html" alt="QR" class="img-fluid mx-auto d-block" style="width: 150px;">
                 <p class="small text-muted mt-2">Collage de recuerdos</p>
             </div>
         </div>
-    </div>
 
-    <!-- ENLACE "HAZ CLICK AQUÍ" -->
-    <div class="row mb-5">
-        <div class="col-12 text-center">
-            <div class="glass-card d-inline-block p-4 mx-auto">
+        <!-- SORPRESA "HAZ CLICK AQUÍ" -->
+        <div class="col-12 col-md-5">
+            <div class="glass-card text-center p-4 h-100">
                 <i class="bi bi-image display-1"></i>
-                <h5>Sorpresa extra</h5>
-                <a href="#" id="enlaceImagen" class="btn-enlace">Haz click aquí</a>
+                <h5 class="mt-2">Sorpresa extra</h5>
+                <a href="#" id="enlaceImagen" class="btn-enlace mt-2 d-inline-block">Haz click aquí</a>
                 <div id="imagenOculta" style="display: none; margin-top: 20px;">
-                    <img src="fotos/imagen-secreta.jpg" alt="Imagen sorpresa" class="img-fluid rounded-3" style="max-width: 100%; max-height: 300px;" onerror="this.src='https://placehold.co/400x300/f39c12/white?text=Imagen+Sorpresa'">
+                    <img src="fotos/imagen-secreta.jpg" alt="Imagen sorpresa" class="img-fluid rounded-3" style="max-width: 100%; max-height: 200px;" onerror="this.src='https://placehold.co/400x300/f39c12/white?text=Imagen+Sorpresa'">
                 </div>
             </div>
         </div>
@@ -306,6 +341,7 @@
 
 <button id="modoBtn" class="modo-btn">🌙</button>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
