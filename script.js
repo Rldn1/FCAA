@@ -105,7 +105,7 @@ if (contadorVisitas) contadorVisitas.innerText = visitas;
 const easterEggFooter = document.getElementById('easterEggFooter');
 if (easterEggFooter) {
     easterEggFooter.addEventListener('click', function() {
-        alert('🐹 ¡Hola! Gracias por visitar esta página. Hamster es un amigo increíble. Cuídalo mucho. 💙');
+        alert('🐹 Hamster es un amigo increíble. Por favor, permanece más tiempo como mi amigo. 💙');
         canvasConfetti({ particleCount: 120, spread: 80, origin: { y: 0.8 } });
     });
 }
@@ -119,7 +119,7 @@ if (form) {
         event.preventDefault();
         const nombre = document.getElementById('nombre').value;
         const mensaje = document.getElementById('mensaje').value;
-        const url = `https://wa.me/${numeroTelefono}?text=*Mensaje para Baka (sobre Hamster)*%0A%0A*De:* ${nombre}%0A*Mensaje:* ${mensaje}`;
+        const url = `https://wa.me/${numeroTelefono}?text=*Mensaje para Esmeralda *%0A%0A*De:* ${nombre}%0A*Mensaje:* ${mensaje}`;
         successDiv.classList.remove('d-none');
         setTimeout(() => { 
             window.open(url, '_blank'); 
@@ -157,7 +157,7 @@ if (btnVideo) {
 
 // ========== CONTADOR DE DÍAS DESDE 2021 ==========
 function calcularDiasAmistad() {
-    const fechaInicio = new Date(2021, 2, 1);
+    const fechaInicio = new Date(2021, 0, 1);
     const hoy = new Date();
     const diffTime = Math.abs(hoy - fechaInicio);
     const diffDias = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
