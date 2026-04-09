@@ -60,18 +60,20 @@ function lanzarConfetiEnModal() {
 
 // Modo oscuro
 const modoBtn = document.getElementById('modoBtn');
-modoBtn.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    if (document.body.classList.contains('dark-mode')) {
-        modoBtn.innerHTML = '☀️';
-        modoBtn.style.background = '#E69A2E';
-    } else {
-        modoBtn.innerHTML = '🌙';
-        modoBtn.style.background = '';
-    }
-});
+if (modoBtn) {
+    modoBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        if (document.body.classList.contains('dark-mode')) {
+            modoBtn.innerHTML = '☀️';
+            modoBtn.style.background = '#E69A2E';
+        } else {
+            modoBtn.innerHTML = '🌙';
+            modoBtn.style.background = '';
+        }
+    });
+}
 
-// Frases para el botón de la sección "Frase del día" del footer
+// Frases para el footer
 const frasesFooter = [
     '"La amistad es como el café: calienta el alma."',
     '"Eres de esas personas que hacen que el mundo sea mejor."',
@@ -92,14 +94,14 @@ if (btnFraseFooter) {
     });
 }
 
-// Contador de visitas (footer)
+// Contador de visitas
 let visitas = localStorage.getItem('visitasFooter');
 visitas = visitas ? parseInt(visitas) + 1 : 1;
 localStorage.setItem('visitasFooter', visitas);
 const contadorVisitas = document.getElementById('contadorVisitas');
 if (contadorVisitas) contadorVisitas.innerText = visitas;
 
-// Easter egg del footer (mensaje secreto)
+// Easter egg del footer
 const easterEggFooter = document.getElementById('easterEggFooter');
 if (easterEggFooter) {
     easterEggFooter.addEventListener('click', function() {
@@ -155,25 +157,15 @@ if (btnVideo) {
 
 // ========== CONTADOR DE DÍAS DESDE 2021 ==========
 function calcularDiasAmistad() {
-    // 1 de enero de 2021 (mes = 0 porque enero = 0)
-    const fechaInicio = new Date(2021, 0, 1);
-
+    const fechaInicio = new Date(2021, 2, 1);
     const hoy = new Date();
-
-    // Quitar horas para evitar errores por zona horaria
-    fechaInicio.setHours(0, 0, 0, 0);
-    hoy.setHours(0, 0, 0, 0);
-
-    const diffTime = hoy - fechaInicio;
-
-    // Usar floor para evitar sumar días de más
-    const diffDias = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
+    const diffTime = Math.abs(hoy - fechaInicio);
+    const diffDias = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     const contadorDias = document.getElementById('contadorDias');
     if (contadorDias) contadorDias.innerText = diffDias;
 }
 
-// ========== DATO RANDOM DE LAS 100 COSAS ==========
+// ========== DATO RANDOM DE LAS 100 COSAS (AHORA SÍ CAMBIA) ==========
 const datosRandom = [
     "🐹 Le gustan los guineos con cáscara",
     "☕ Hace café casi a diario",
@@ -191,16 +183,31 @@ const datosRandom = [
     "🎂 Es extrovertido y me anima siempre",
     "🛒 Recuerdo: el día en Dollar City",
     "🚌 Salida pendiente en bus",
-    "🍵 Té en el INGO con él"
+    "🍵 Té en el INGO con él",
+    "💬 Su frase: 'Juela, mi niño'",
+    "🎲 Es el rey de los juegos de mesa",
+    "📱 Prefiere audios antes que textos"
 ];
+
+let intervaloDatoRandom = null;
 
 function mostrarDatoRandom() {
     const randomIndex = Math.floor(Math.random() * datosRandom.length);
     const datoElement = document.getElementById('datoRandomHamster');
-    if (datoElement) datoElement.innerHTML = datosRandom[randomIndex];
+    if (datoElement) {
+        datoElement.innerHTML = datosRandom[randomIndex];
+    }
 }
 
-// ========== 100 COSAS CON "LEER MÁS" ==========
+// Iniciar el cambio automático cada 30 segundos
+function iniciarCambioAutomaticoDato() {
+    if (intervaloDatoRandom) clearInterval(intervaloDatoRandom);
+    intervaloDatoRandom = setInterval(() => {
+        mostrarDatoRandom();
+    }, 3000); // Cambia cada 30 segundos
+}
+
+// ========== 100 COSAS ==========
 const todasLasCosas = [
     "No creía que le hablaría (excepto para trabajos)",
     "Me veía 'sabiondo' en informática",
@@ -310,28 +317,70 @@ function mostrarCosas(limit) {
     
     const cosasMostrar = todasLasCosas.slice(0, limit);
     
-    const col1 = cosasMostrar.filter((_, idx) => idx % 3 === 0);
-    const col2 = cosasMostrar.filter((_, idx) => idx % 3 === 1);
-    const col3 = cosasMostrar.filter((_, idx) => idx % 3 === 2);
+    let col1 = [];
+    let col2 = [];
+    let col3 = [];
+    
+    if (limit === 30) {
+        col1 = cosasMostrar.slice(0, 10);
+        col2 = cosasMostrar.slice(10, 20);
+        col3 = cosasMostrar.slice(20, 30);
+    } else {
+        col1 = cosasMostrar.slice(0, 33);
+        col2 = cosasMostrar.slice(33, 66);
+        col3 = cosasMostrar.slice(66, 100);
+    }
     
     let html = `<div class="row">`;
-    html += `<div class="col-md-4"><ul class="list-unstyled">${col1.map((item, i) => `<li><i class="bi bi-check-circle-fill"></i> ${i*3+1}. ${item}</li>`).join('')}</ul></div>`;
-    html += `<div class="col-md-4"><ul class="list-unstyled">${col2.map((item, i) => `<li><i class="bi bi-check-circle-fill"></i> ${i*3+2}. ${item}</li>`).join('')}</ul></div>`;
-    html += `<div class="col-md-4"><ul class="list-unstyled">${col3.map((item, i) => `<li><i class="bi bi-check-circle-fill"></i> ${i*3+3}. ${item}</li>`).join('')}</ul></div>`;
+    
+    html += `<div class="col-md-4"><ul class="list-unstyled">`;
+    col1.forEach((item, idx) => {
+        let numero = idx + 1;
+        html += `<li><i class="bi bi-check-circle-fill"></i> ${numero}. ${item}</li>`;
+    });
+    html += `</ul></div>`;
+    
+    html += `<div class="col-md-4"><ul class="list-unstyled">`;
+    col2.forEach((item, idx) => {
+        let numero = col1.length + idx + 1;
+        html += `<li><i class="bi bi-check-circle-fill"></i> ${numero}. ${item}</li>`;
+    });
+    html += `</ul></div>`;
+    
+    html += `<div class="col-md-4"><ul class="list-unstyled">`;
+    col3.forEach((item, idx) => {
+        let numero = col1.length + col2.length + idx + 1;
+        html += `<li><i class="bi bi-check-circle-fill"></i> ${numero}. ${item}</li>`;
+    });
+    html += `</ul></div>`;
+    
     html += `</div>`;
     
-    if (limit < todasLasCosas.length) {
-        html += `<div class="text-center mt-4"><button id="btnLeerMas" class="btn-ver-mas"><i class="bi bi-arrow-down-circle"></i> Leer más (${todasLasCosas.length - limit} restantes)</button></div>`;
+    if (limit === 30) {
+        html += `<div class="text-center mt-4">
+                    <button id="btnVerMas" class="btn-ver-mas"><i class="bi bi-arrow-down-circle"></i> Ver más (70 restantes)</button>
+                 </div>`;
     } else {
-        html += `<div class="text-center mt-3 fst-italic text-muted">🐹 Extra: el hámster 🐹</div>`;
+        html += `<div class="text-center mt-4">
+                    <button id="btnVerMenos" class="btn-ver-mas"><i class="bi bi-arrow-up-circle"></i> Ver menos (volver a 30)</button>
+                 </div>`;
+        html += `<div class="text-center mt-2 fst-italic text-muted">🐹 Extra: el hámster 🐹</div>`;
     }
     
     container.innerHTML = html;
     
-    const btnLeerMas = document.getElementById('btnLeerMas');
-    if (btnLeerMas) {
-        btnLeerMas.addEventListener('click', () => {
-            mostrarCosas(todasLasCosas.length);
+    const btnVerMas = document.getElementById('btnVerMas');
+    if (btnVerMas) {
+        btnVerMas.addEventListener('click', () => {
+            mostrarCosas(100);
+            window.scrollTo({ top: document.getElementById('100cosas').offsetTop - 80, behavior: 'smooth' });
+        });
+    }
+    
+    const btnVerMenos = document.getElementById('btnVerMenos');
+    if (btnVerMenos) {
+        btnVerMenos.addEventListener('click', () => {
+            mostrarCosas(30);
             window.scrollTo({ top: document.getElementById('100cosas').offsetTop - 80, behavior: 'smooth' });
         });
     }
@@ -341,7 +390,8 @@ function mostrarCosas(limit) {
 window.addEventListener('load', () => {
     mostrarCosas(30);
     calcularDiasAmistad();
-    mostrarDatoRandom();
+    mostrarDatoRandom();        // Muestra un dato al azar al cargar
+    iniciarCambioAutomaticoDato(); // Cambia el dato cada 30 segundos
     
     const modal = new bootstrap.Modal(document.getElementById('modalEntrada'));
     modal.show();
